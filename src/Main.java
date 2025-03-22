@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
-import Usuario.Persona;
+import MedioDeTransporte.Coche;
+import MedioDeTransporte.Vehiculo;
+import Recorrido.Viaje;
 
 public class Main {
 
@@ -38,8 +40,32 @@ public class Main {
 	}
 	
 	public static void planificarViaje () {
+		Scanner sc = new Scanner (System.in);
+		Vehiculo cocheViaje;
+		Vehiculo furgoViaje;
 		
+		System.out.println("De donde partirá el viaje:");
+		String origenViaje = sc.nextLine();
+		System.out.println("Cúal es el destino de este:");
+		String destinoViaje = sc.nextLine();
+		System.out.println("Dime la distancia entre ambos:");
+		double kmsViaje = sc.nextDouble();
+		System.out.println("Cuanto gastará cada pasajero:");
+		double gastoPorPasajero = sc.nextDouble();
+		System.out.println("Que vehiculo usarán (Coche/Furgoneta):");
+		String respuesta = sc.nextLine();
 		
+		if (respuesta.equalsIgnoreCase("Coche")) {
+			
+			cocheViaje = new Coche ("4893KRJ", 123.224, );
+			
+		} else if (respuesta.equalsIgnoreCase("Furgoneta")) {
+			
+		} else {
+			
+		}
+		
+		Viaje vNuevo = new Viaje ();
 		
 	}
 	

@@ -80,4 +80,13 @@ public class Viaje {
 		
 	}
 	
+	public static Viaje crearGestion () {
+		
+		
+		
+		Viaje app = new Viaje ();
+		
+		return app;
+	}
+	
 }

@@ -30,10 +30,12 @@ public class Main {
 			
 			case '2':
 				
+				//mostrarInformePersonas(personas, vehiculos);
 				break;
 				
 			case '3':
 				
+				//mostrarInformeVehiculos(personas, vehiculos);
 				break;
 				
 			default:
@@ -207,6 +209,14 @@ public class Main {
 
 		} while (!viajePlanificado);
 
+	}
+	
+	public static void mostrarInformePersonas () {
+		
+	}
+	
+	public static void mostrarInformeVehiculos () {
+		
 	}
 	
 //	FUNCION RETORNA VALOR DEL MENU

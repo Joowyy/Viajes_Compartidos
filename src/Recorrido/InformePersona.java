@@ -7,22 +7,22 @@ import Usuario.Persona;
 public class InformePersona implements Informe {
 
 //	ATRIBUTOS
-	private ArrayList<Persona> personas = new ArrayList<Persona>();
+	private static ArrayList<Persona> personas = new ArrayList<Persona>();
 	
 //	CONSTRUCTORES
 	public InformePersona () {
 		
 	}
 	public InformePersona (ArrayList<Persona> personas) {
-		this.personas = personas;
+		InformePersona.personas = personas;
 	}
 	
 //	GETTERS SETTERS
-	public ArrayList<Persona> getPersonas() {
+	public static ArrayList<Persona> getPersonas() {
 		return personas;
 	}
 	public void setPersonas(ArrayList<Persona> personas) {
-		this.personas = personas;
+		InformePersona.personas = personas;
 	}
 	
 //	METODOS

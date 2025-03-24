@@ -7,23 +7,23 @@ import MedioDeTransporte.Vehiculo;
 public class InformeVehiculo implements Informe {
 	
 //	ATRIBUTOS
-	private ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
+	private static ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
 	
 //	CONSTRUCTORES
 	public InformeVehiculo () {
 		
 	}
 	public InformeVehiculo (ArrayList<Vehiculo> vehiculos) {
-		this.vehiculos = vehiculos;
+		InformeVehiculo.vehiculos = vehiculos;
 	}
 	
 //	GETTERS SETTERS
-	public ArrayList<Vehiculo> getVehiculos() {
+	public static ArrayList<Vehiculo> getVehiculos() {
 		return vehiculos;
 	}
 
 	public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
-		this.vehiculos = vehiculos;
+		InformeVehiculo.vehiculos = vehiculos;
 	}
 
 //	METODOS

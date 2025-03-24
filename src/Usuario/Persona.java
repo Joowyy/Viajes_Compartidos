@@ -13,6 +13,12 @@ public abstract class Persona {
 	public Persona () {
 		
 	}
+	public Persona (String nombre, String localidad, String telefono) {
+		this.nombre = nombre;
+		this.localidad = localidad;
+		this.telefono = telefono;
+
+	}
 	public Persona (String nombre, String localidad, String telefono, double gasto, double ingreso) {
 		this.nombre = nombre;
 		this.localidad = localidad;

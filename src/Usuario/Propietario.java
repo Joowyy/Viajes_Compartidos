@@ -9,6 +9,10 @@ public class Propietario extends Persona {
 	public Propietario () {
 		
 	}
+	public Propietario (String nombre, String localidad, String telefono, String experienciaConduccion) {
+		super (nombre, localidad, telefono);
+		this.experienciaConduccion = experienciaConduccion;
+	}
 	public Propietario (String nombre, String localidad, String telefono, double gasto, double ingreso, String experienciaConduccion) {
 		super (nombre, localidad, telefono, gasto, ingreso);
 		this.experienciaConduccion = experienciaConduccion;

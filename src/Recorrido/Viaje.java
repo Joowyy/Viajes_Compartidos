@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import MedioDeTransporte.Vehiculo;
 import Usuario.Persona;
+import Usuario.Propietario;
 
 public class Viaje {
 
@@ -79,14 +80,5 @@ public class Viaje {
 		System.out.println("==============================\n");
 		
 	}
-	
-	public static Viaje crearGestion () {
-		
-		
-		
-		Viaje app = new Viaje ();
-		
-		return app;
-	}
-	
+
 }

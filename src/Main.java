@@ -6,6 +6,7 @@ import MedioDeTransporte.Furgoneta;
 import MedioDeTransporte.Vehiculo;
 import Recorrido.InformePersona;
 import Recorrido.InformeVehiculo;
+import Recorrido.Viaje;
 import Usuario.Persona;
 import Usuario.Propietario;
 import Usuario.Viajero;
@@ -16,8 +17,9 @@ public class Main {
 
 		ArrayList<Persona> personas = InformePersona.getPersonas();
 		ArrayList<Vehiculo> vehiculos = InformeVehiculo.getVehiculos();
+		ArrayList<Viaje> viajes = new ArrayList<Viaje>();
 		char opcionUsuario;
-		
+
 		do {
 		
 			opcionUsuario = menu();
@@ -25,17 +27,17 @@ public class Main {
 			switch (opcionUsuario) {
 			case '1':
 				
-				planificarViaje(personas, vehiculos);
+				planificarViaje(personas, vehiculos, viajes);
 				break;
 			
 			case '2':
 				
-				//mostrarInformePersonas(personas, vehiculos);
+				mostrarInformePersonas(personas, vehiculos, viajes);
 				break;
 				
 			case '3':
 				
-				//mostrarInformeVehiculos(personas, vehiculos);
+				mostrarInformeVehiculos(personas, vehiculos, viajes);
 				break;
 				
 			default:
@@ -48,20 +50,18 @@ public class Main {
 		
 	}
 	
-	public static void planificarViaje (ArrayList<Persona> personas, ArrayList<Vehiculo> vehiculos) {
+	public static void planificarViaje (ArrayList<Persona> personas, ArrayList<Vehiculo> vehiculos, ArrayList<Viaje> viajes) {
 		
 //		Variables necesarias
 		Scanner sc = new Scanner (System.in);
-		boolean personasCreada = false;
 		boolean viajePlanificado = false;
 		ArrayList<Persona> pasajeros = new ArrayList<Persona>();
 		double ingresosPrope = 0.0;
 		double gastoPorPasajero = 0.0;
-		String telefonoPasa = null;
 		Viajero pasaAuxEx = new Viajero();
 		Propietario propeAux = new Propietario();
-		Vehiculo cocheViaje = null;
-		Vehiculo furgoViaje = null;
+		Coche cocheViaje = new Coche();
+		Furgoneta furgoViaje = new Furgoneta();
 		
 //		Bucle en busca de errores
 		do {
@@ -75,12 +75,12 @@ public class Main {
 			double kmsViaje = sc.nextDouble();
 			System.out.println("Cuanto gastará cada pasajero:");
 			gastoPorPasajero = sc.nextDouble();
+			sc.nextLine();
 			
 //			Datos de las personas
 //			> Propietario <
 			System.out.println("Dime el nombre del propietario ->");
 			propeAux.setNombre(sc.nextLine());
-			sc.nextLine();
 			System.out.println("De donde es el propietario ->");
 			propeAux.setLocalidad(sc.nextLine());
 			System.out.println("Dime su telefono para contactar con el ->");
@@ -116,6 +116,7 @@ public class Main {
 				pasaAux.setTelefono(sc.nextLine());
 				pasaAuxEx.setTelefono(pasaAux.getTelefono());
 				
+//				Chequeo
 				if (pasaAux.getTelefono().length() != 9) {
 					
 					System.out.println("Introduce un telefono válido porfavor");
@@ -134,6 +135,7 @@ public class Main {
 				
 			}
 			
+//			Chequeo
 			if (pasaAuxEx.getTelefono().length() != 9) {
 				
 				System.out.println("Introduce un telefono válido porfavor");
@@ -141,6 +143,7 @@ public class Main {
 				
 			}
 			
+//			Ingresos del propietario
 			ingresosPrope = gastoPorPasajero * numPasajeros;
 			propeAux.incrementarIngreso(ingresosPrope);
 			
@@ -157,10 +160,10 @@ public class Main {
 			if (respuesta.equalsIgnoreCase("Coche")) {
 
 				System.out.println("Vamos a recoger los datos del coche ->\nDigame su matricula:");
-				String matriculaCoche = sc.nextLine();
+				cocheViaje.setMatricula(sc.nextLine());
 
 //				Chequeo
-				if (matriculaCoche.length() != 7) {
+				if (cocheViaje.getMatricula().length() != 7) {
 
 					System.out.println("Introduce una matricula válida");
 					break;
@@ -168,23 +171,30 @@ public class Main {
 				}
 
 				System.out.println("Que kms a recorrido el vehiculo");
-				double kmsCoche = sc.nextDouble();
-				Propietario titularCoche = propeAux;
+				cocheViaje.setKmsRecorridos(sc.nextDouble());
+				sc.nextLine();
+				
+//				Titular del vehiculo
+				cocheViaje.setTitular(propeAux);
+				
 				System.out.println("Dime la marca del coche:");
-				String marcaCoche = sc.nextLine();
+				cocheViaje.setMarca(sc.nextLine());
 				System.out.println("Dime el modelo del coche:");
-				String modeloCoche = sc.nextLine();
+				cocheViaje.setModelo(sc.nextLine());
 				viajePlanificado = true;
 
-				vehiculos.add(new Coche(matriculaCoche, kmsCoche, titularCoche, marcaCoche, modeloCoche));
+//				Agregamos el vehiculo al viaje
+				vehiculos.add(cocheViaje);
+				
+				viajes.add(new Viaje(origenViaje, destinoViaje, kmsViaje, gastoPorPasajero, pasajeros, cocheViaje));
 
 			} else if (respuesta.equalsIgnoreCase("Furgoneta")) {
 
 				System.out.println("Vamos a recoger los datos de la furgo ->\nDigame su matricula:");
-				String matriculaFurgo = sc.nextLine();
+				furgoViaje.setMatricula(sc.nextLine());
 
 //				Chequeo
-				if (matriculaFurgo.length() != 7) {
+				if (furgoViaje.getMatricula().length() != 7) {
 
 					System.out.println("Introduce una matricula válida");
 					break;
@@ -192,14 +202,16 @@ public class Main {
 				}
 
 				System.out.println("Que kms a recorrido la furgo");
-				double kmsFurgo = sc.nextDouble();
+				furgoViaje.setKmsRecorridos(sc.nextDouble());
 				sc.nextLine();
-				Propietario titularFurgo = propeAux;
+				furgoViaje.setTitular(propeAux);
 				System.out.println("Dime la capacidad de la furgo:");
-				String capacidadFurgo = sc.nextLine();
+				furgoViaje.setCapacidadCarga(sc.nextLine());
 				viajePlanificado = true;
 
-				vehiculos.add(new Furgoneta(matriculaFurgo, kmsFurgo, titularFurgo, capacidadFurgo));
+				vehiculos.add(furgoViaje);
+				
+				viajes.add(new Viaje(origenViaje, destinoViaje, kmsViaje, gastoPorPasajero, pasajeros, furgoViaje));
 
 			} else {
 
@@ -211,11 +223,25 @@ public class Main {
 
 	}
 	
-	public static void mostrarInformePersonas () {
+	public static void mostrarInformePersonas (ArrayList<Persona> personas, ArrayList<Vehiculo> vehiculos, ArrayList<Viaje> viajes) {
+		
+		System.out.println("Estos son los viajes llevados a cabo ->");
+		
+		for (Viaje v1 : viajes) {
+			
+			v1.getClass();
+			
+		}
+		
+		InformePersona ip = new InformePersona();
+		ip.mostrarInforme();
 		
 	}
 	
-	public static void mostrarInformeVehiculos () {
+	public static void mostrarInformeVehiculos (ArrayList<Persona> personas, ArrayList<Vehiculo> vehiculos, ArrayList<Viaje> viajes) {
+		
+		InformeVehiculo iv = new InformeVehiculo();
+		iv.mostrarInforme();
 		
 	}
 	
@@ -224,7 +250,7 @@ public class Main {
 		
 		Scanner sc = new Scanner (System.in);
 		
-		System.out.println("BIENVENIDO A CALLAO-CAR\n1. Planificar Viaje\n2. \n3. \n4.");
+		System.out.println("BIENVENIDO A CALLAO-CAR\n1. Planificar Viaje\n2. Informe Personas\n3. Informe Vehiculos \n4. Mostrar Viajes");
 		char opcionUsuario = sc.nextLine().charAt(0);
 		
 		return opcionUsuario;

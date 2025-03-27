@@ -35,7 +35,7 @@ public class InformeVehiculo implements Informe {
 		
 		for (Vehiculo v1 : vehiculos) {
 			
-			
+			v1.mostrarVehiculo();
 			
 		}
 		

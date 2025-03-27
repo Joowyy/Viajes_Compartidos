@@ -29,7 +29,16 @@ public class InformePersona implements Informe {
 	@Override
 	public void mostrarInforme() {
 
+		System.out.println("==============================");
+		System.out.println("\t> PERSONAS <");
 		
+		for (Persona p1 : personas) {
+			
+			p1.mostrarPersona();
+			
+		}
+		
+		System.out.println("==============================");
 		
 	}
 

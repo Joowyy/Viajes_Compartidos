@@ -41,4 +41,10 @@ public class Propietario extends Persona {
 		
 	}
 	
+	public String toString () {
+		
+		return nombre;
+		
+	}
+	
 }
